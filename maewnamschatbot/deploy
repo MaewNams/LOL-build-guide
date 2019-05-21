@@ -1,18 +1,12 @@
 #!/usr/bin/env bash
 
-TARGET=$1
-FUNC=$2
+FUNC=$1
 
-case "$TARGET" in
-    demo)
-        PROJ="maewnams-lol-build-guide"
-        CONF_FILE="config.yml"
-        ENV_FILE="env.yml" ;;
-esac
+PROJ="handy-coil-235818"
+CONF_FILE="config.yml"
+ENV_FILE="env.yml"
 
-echo "Deploy $FUNC to $TARGET($PROJ) using env: $ENV_FILE, config: $CONF_FILE"
-
-cp $CONF_FILE config.yml
+echo "Deploy $FUNC to $PROJ using env: $ENV_FILE, config: $CONF_FILE"
 
 gcloud functions deploy $FUNC \
 --project $PROJ \
