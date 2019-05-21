@@ -1,4 +1,4 @@
-module /home/chonticha/Documents/maewnams-chatbot/maewnamschatbot
+module github.com/MaewNams/LOL-build-guide/maewnamschatbot
 
 go 1.12
 
