@@ -4,26 +4,14 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
-
-// Claims struct
-type Claims struct {
-	Sub string `json:"sub"`
-	Iss string `json:"iss"`
-	Aud string `json:"aud"`
-	jwt.StandardClaims
-}
 
 var (
 	channelSecret = os.Getenv("CHANNEL_SECRET")
 	channelToken  = os.Getenv("CHANNEL_TOKEN")
-	jwtKey        = []byte(userSecret)
-	sKey          = []byte(mumuSecret)
 	httpClient    = &http.Client{
 		Timeout: 10 * time.Second,
 	}
@@ -64,20 +52,18 @@ func LineWebhook(w http.ResponseWriter, r *http.Request) {
 func ProcessEvent(config *Config, bot *linebot.Client, event *linebot.Event) error {
 
 	if event.Type == linebot.EventTypeMessage {
-		userID := event.Source.UserID
-		switch message := event.Message.(type) {
+		switch event.Message.(type) {
 		case *linebot.TextMessage:
-				textMsg := linebot.NewTextMessage("Hello world")
-				_, err := bot.ReplyMessage(event.ReplyToken, textMsg).Do()
-				if err != nil {
-					log.Println("Error replying message")
-					return err
-				}
+			textMsg := linebot.NewTextMessage("Hello world")
+			_, err := bot.ReplyMessage(event.ReplyToken, textMsg).Do()
+			if err != nil {
+				log.Println("Error replying message")
+				return err
 			}
 
 		case *linebot.StickerMessage:
 			log.Println("Received sticker message")
-
+		}
 	}
 	return nil
 
