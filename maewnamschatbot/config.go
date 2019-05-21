@@ -9,18 +9,16 @@ import (
 
 // Config contains configured data read from .config.yml
 type Config struct {
-	Endpoints Endpoints     `yaml:"endpoints"`
-	Message   MessageConfig `yaml:"message"`
+	Message MessageConfig `yaml:"message"`
 }
 
 // Endpoints is list of endpoints
 type Endpoints struct {
-
 }
 
 // MessageConfig is set of message-related configuration
 type MessageConfig struct {
-	DefaultMsg       string `yaml:"default_msg"`
+	DefaultMsg string `yaml:"default_msg"`
 }
 
 // ReadConfig reads configuration from the given file.
