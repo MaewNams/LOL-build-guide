@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+TARGET=$1
+FUNC=$2
+
+case "$TARGET" in
+    demo)
+        PROJ="maewnams-lol-build-guide"
+        CONF_FILE="config.yml"
+        ENV_FILE="env.yml" ;;
+esac
+
+echo "Deploy $FUNC to $TARGET($PROJ) using env: $ENV_FILE, config: $CONF_FILE"
+
+cp $CONF_FILE config.yml
+
+gcloud functions deploy $FUNC \
+--project $PROJ \
+--runtime go111 \
+--trigger-http \
+--env-vars-file $ENV_FILE
